@@ -1,0 +1,5 @@
+This repo hosts a few quick and dirty scripts I wrote for an assignment 
+in one of my classes at RIT. The file format Python scripts all require
+exiftool to be installed before they can be run. chart.py requires 
+that the plotly Python module be installed. These scripts were
+designed to work in Kali Linux. 
