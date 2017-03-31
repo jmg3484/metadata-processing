@@ -1,4 +1,7 @@
 import sys, io
+
+# pip install plotly
+
 import plotly
 
 class ImageFile:
@@ -11,6 +14,7 @@ if (len(sys.argv) != 2):
 	sys.exit(1)
 
 imageFileList = []
+
 interestingAttributes = { 
 	'Application': {},
 	'Author': {},
@@ -21,6 +25,16 @@ interestingAttributes = {
 
 file = io.open(sys.argv[1], "r")
 newFile = None
+
+# Report files are formatted with the name of the file on one line,
+# then that files attributes directly under. Each file section is 
+# separated by a blank line. The file is initialized when we read a
+# line lacking a colon, and then all of its attributes are read in.
+# If the attribute is "interesting" (worth graphing, just based on
+# what I thought should've been looked into), increment the number
+# of times we've seen that value in the attribute dictionary, or
+# just insert it if we've never seen it before.
+
 for line in file:
 	if ":" not in line and len(line) > 1:
 		if newFile:
@@ -38,6 +52,8 @@ for line in file:
 				interestingAttributes[attribute][value] += 1
 			else:
 				interestingAttributes[attribute][value] = 1
+
+# Generate a chart using plotly for each interesting attribute.
 
 for attribute in interestingAttributes.keys():
 	fig = { 
